@@ -7,6 +7,10 @@ from django.http import HttpResponse
 # Create your views here.
 import unirest
 
+def index(request):
+	
+    return render(request,'index.html',context=None)
+
 def get_news(request):
 	
 
