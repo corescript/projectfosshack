@@ -51,16 +51,27 @@ def get_news(request):
         obj = article()
         obj.title = i['title']
         obj.text = atext.rstrip()
-
         emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":obj.text, "level": "sentence" })
-        print emotion['emotions'][0]
-
-        topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
-        print topic
         sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
-        print sentiment
-        obj.save()
-
+        try:    
+            obj.anger = emotion.body[0]['emotions'][0]['score']
+            obj.calm = emotion.body[0]['emotions'][1]['score']
+            obj.fear = emotion.body[0]['emotions'][2]['score']
+            obj.happy = emotion.body[0]['emotions'][3]['score']
+            obj.like = emotion.body[0]['emotions'][4]['score']
+            obj.shame = emotion.body[0]['emotions'][5]['score']
+            obj.sure = emotion.body[0]['emotions'][6]['score']
+            obj.surprise = emotion.body[0]['emotions'][7]['score']
+            #topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
+            #print topic
+            
+            obj.negative =  sentiment.body[0]['sentiment']['negative']
+            obj.positive =  sentiment.body[0]['sentiment']['positive']
+            obj.neutral =  sentiment.body[0]['sentiment']['neutral']
+            obj.label =  sentiment.body[0]['sentiment']['label']
+            obj.save()
+        except:
+            pass
         #except:
         #    print "Error :("
     #print place1
