@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from analyzer.views import *
+from news.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', get_news),
 ]
