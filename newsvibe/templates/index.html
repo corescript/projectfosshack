@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>NewsJack</title>
+  <title>NewsVibe</title>
 
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -32,7 +32,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">NewsJack</a>
+        <a class="navbar-brand" href="#">NewsVibe</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
@@ -56,8 +56,7 @@
     </div>
   </nav>
 <div class="container-fluid shuffler shadowin boxshadowout">
-<div class="row" style="padding:20px;">
-
+<div class="row" style="padding:5vw;">
 <!----paperbox---->
 <div class="col-md-2 poperbox">
   <div class="row" style="border:2px solid white;border-radius:3px;padding:10px;">
@@ -282,33 +281,68 @@
 <img src="images/bird.png" alt="" class="bird1" style="position:absolute;left:300px;" width="80px"><br /><br />
 <img src="images/bird.png" alt="" class="bird2" style="position:absolute;left:100px;" width="50px">
 </div><img src="images/cloud.png" alt="" width="150px" style="position:absolute;left:180%;" class="cloud2"><img src="images/cloud.png" alt="" width="80px" style="position:absolute;left:180%;" class="cloud3">
-<br /><br /><br /><br /><br />
+<br /><br /><br /><br />
 <div class="container">
-<h1>Welcome to NewsJack!!</h1>
-
+<h1>Welcome to NewsVibe!!</h1>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 
 </div>
 
 <script type="text/javascript">
-
 function animateb()
 {
-  console.log("started");
-$('bird').css({left:0});
+$('.bird').animate({left: 0},0);
 $('.bird').animate({left:'100%'},11000,"linear");
 }
+function animateb1()
+{
+$('.bird1').animate({left: 0},0);
+$('.bird1').animate({left:'100%'},9000,"linear")
+}
+function animateb2()
+{
+$('.bird2').animate({left: 0},0);
+$('.bird2').animate({left:'100%'},10000,"linear")
+}
+function animatec()
+{
+$('.cloud').animate({left: "100%"},0);
+$('.cloud').animate({left:'-20%'},18000,"linear")
+}
+function animatec1()
+{
+$('.cloud1').animate({left: "100%"},0);
+$('.cloud1').animate({left:'-20%'},16000,"linear")
+}
 
+function animatec2()
+{
+$('.cloud2').animate({left: "100%"},0);
+$('.cloud2').animate({left:'-20%'},15000,"linear")
+}
 
-  $('.bird1').animate({left:'100%'},9000,"linear")
-  $('.bird2').animate({left:'100%'},10000,"linear")
-  $('.cloud').animate({left:'-20%'},18000,"linear")
-  $('.cloud1').animate({left:'-20%'},18000,"linear")
-  $('.cloud2').animate({left:'-20%'},15000,"linear")
-  $('.cloud3').animate({left:'-20%'},17000,"linear")
+function animatec3()
+{
+$('.cloud3').animate({left: "100%"},0);
+$('.cloud3').animate({left:'-20%'},10000,"linear")
+}
 
 animateb();
-setInterval(animateb(),12000);
+animateb1();
+animateb2();
+$('.cloud').animate({left:'-20%'},18000,"linear")
+$('.cloud1').animate({left:'-20%'},16000,"linear")
+$('.cloud2').animate({left:'-20%'},15000,"linear")
+$('.cloud3').animate({left:'-20%'},10000,"linear")
+
+setInterval("animateb()",11000);
+setInterval("animateb1()",9000);
+setInterval("animateb2()",10000);
+setInterval("animatec()",18000);
+setInterval("animatec1()",18000);
+setInterval("animatec2()",14000);
+setInterval("animatec3()",10000);
 </script>
 
 
