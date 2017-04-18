@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import *
 # Create your views here.
 import unirest
 
@@ -19,7 +19,13 @@ def get_news(request):
     articles = response1.body['articles']
     
     for i in articles:
-    	print i['author']
+        data = news()
+    	data.description = i['description']
+        data.title = i['title']
+        data.url = i['url']
+        data.urlToImage = i['urlToImage']
+        data.publishedAt = i['publishedAt']
+        data.save()
     #print place1 
     
     return HttpResponse("DONE")
