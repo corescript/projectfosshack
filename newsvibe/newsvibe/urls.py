@@ -19,6 +19,7 @@ from analyzer.views import *
 from news.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^get/', get_news),
     url(r'^', index),
-    url(r'^', get_news),
+    
 ]
