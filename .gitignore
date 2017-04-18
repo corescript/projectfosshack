@@ -128,4 +128,6 @@ ENV/
 pyvenv.cfg
 pip-selfcheck.json
 
+~*
+*.sqlite3
 # End of https://www.gitignore.io/api/linux,python,virtualenv
