@@ -22,10 +22,10 @@ def index(request):
     return render(request,'index.html',context)
 
 def get_news(request):
-	
+
 
     response1 = unirest.get("https://newsapi.org/v1/articles/", headers={ "Accept": "application/json" }, params={"apiKey": "7a233aaececb44a3a0dd8576350c680e", "sortBy":"top", "source":"google-news"})
-    
+
     articles = response1.body['articles']
     client = textapi.Client("faf883f4", "057f1bdde3dba11b14cf9abc9abbf986")
     for i in articles:
@@ -36,15 +36,15 @@ def get_news(request):
         data.urlToImage = i['urlToImage']
         data.publishedAt = i['publishedAt']
         data.save()
-        
+
         extract = client.Extract({"url": data.url, "best_image": True})
         atext = extract['article']
 
         #print extract
         """
-        #try:    
+        #try:
         response = unirest.post("https://api.aylien.com/api/v1/extract", headers={ "Accept": "application/json" }, params={ "text": data.url, "language": "en", "tab":"extract" })
-        
+
         atext = response.body
         """
         print atext.rstrip()
@@ -60,13 +60,13 @@ def get_news(request):
         sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
         print sentiment
         obj.save()
-       
+
         #except:
         #    print "Error :("
-    #print place1 
-    
+    #print place1
+
     return HttpResponse("DONE")
-   
+
 
     #return render(request,'index.html',context=None)
 
@@ -74,7 +74,7 @@ def get_news(request):
 def process_news(request):
     queryset = article.objects.all()
 
-    
+
     emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":"", "level": "sentence" })
 
     #print emotion.body
@@ -97,8 +97,10 @@ def process_news(request):
 def article_view(request,id=None):
 
     aobj =  article.objects.get(id=id)
-
+    nobj = news.objects.get(title=aobj.title)
     context = {
-        'aobj': aobj
+        'aobj': aobj,
+        'nobj': nobj,
+
     }
     return render(request,"article.html", context)

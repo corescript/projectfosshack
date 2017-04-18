@@ -67,7 +67,7 @@
 <div class="col-md-2 poperbox">
   <div class="row" style="border:1px solid white;border-radius:3px;">
     <div class="col-md-12" style="padding:0;">
-      <a href="{{ i.url }}"><div class="stats">
+      <a href="{{ request.scheme }}://{{request.get_host}}/article/{{i.id}}/"><div class="stats">
           <h4>Read More</h4>
             <span style="color:red;font-size:40px;" class="glyphicon glyphicon-heart"></span><br />
             36%
@@ -117,7 +117,6 @@
       </div>
     </div>
   </form>
-
 </center>
 
 
