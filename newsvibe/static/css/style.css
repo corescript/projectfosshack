@@ -51,9 +51,7 @@ border-radius: 0;
     }
 .stats
 {
-  position: absolute;
-  opacity:0;
-  height:100px;
+
 }
 
 .stats:hover
