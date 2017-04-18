@@ -130,4 +130,5 @@ pip-selfcheck.json
 
 ~*
 *.sqlite3
+*.pyc
 # End of https://www.gitignore.io/api/linux,python,virtualenv
