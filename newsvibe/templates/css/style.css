@@ -50,13 +50,20 @@ border-radius: 0;
 
 
 
-@media (min-width: 576px) {
+@media (max-width: 576px) {
 
 
  }
 
-@media (min-width: 768px) {
-
+@media (max-width: 768px) {
+.shuffler
+{
+  display: none;
+}
+.animation
+{
+  display: none;
+}
 
 }
 
