@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="#">Page 1-1</a></li>
               <li><a href="#">Page 1-2</a></li>
@@ -63,15 +63,21 @@
 {% for i in queryset %}
 <div class="col-md-2 poperbox">
   <div class="row" style="border:1px solid white;border-radius:3px;">
-    <div class="" style="padding:10px;">
-      <div class="col-md-12">
-      <img src='{{ i.urlToImage }}' width="100%" class="img-responsive img-circle">
+    <div class="col-md-12" style="padding:0;">
+      <div class="stats">
+
+      </div>
+    </div>
+
+    <div>
+      <div class="col-md-12" style="padding:0;height:100px;background-image:url('{{ i.urlToImage }}');background-size:cover;">
+
     </div>
 
     <div class="col-md-12 titlepad">
-        <h4 style="font-weight:bold;"><a href='{{ i.url }}'>{{ i.title }}</a></h4>
+        <h4 style="font-weight:bold;"><a class="text"href='{{ i.url }}'>{{ i.title }}</a></h4>
     </div>
-    <div class="col-md-12 newsdot">
+    <div class="col-md-12 newsdot text">
       {{ i.description }}
       </div>
     </div>
@@ -93,7 +99,12 @@
 </div>
 <div class="container">
 <h1>Welcome to <b>NewsVibe</b>!!</h1>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+
+
+
+
+
 </div>
 
 <script type="text/javascript">
