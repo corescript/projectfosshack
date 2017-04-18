@@ -8,8 +8,11 @@ from .models import *
 import unirest
 
 def index(request):
-	
-    return render(request,'index.html',context=None)
+    queryset = news.objects.all()
+    context = {
+        'queryset':queryset,
+    }
+    return render(request,'index.html',context)
 
 def get_news(request):
 	

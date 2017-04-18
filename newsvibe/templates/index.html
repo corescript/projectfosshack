@@ -60,23 +60,25 @@
 <div class="container-fluid shuffler shadowin boxshadowout">
 <div class="row" style="padding:6vw;padding-top:50px;">
 <!----paperbox---->
+{% for i in queryset %}
 <div class="col-md-2 poperbox">
   <div class="row" style="border:1px solid white;border-radius:3px;">
     <div class="" style="padding:10px;">
       <div class="col-md-12">
-      <img src="{% static "images/news.png"%}" width="100%" class="img-responsive img-circle">
+      <img src='{{ i.urlToImage }}' width="100%" class="img-responsive img-circle">
     </div>
+
     <div class="col-md-12 titlepad">
-        <h4 style="font-weight:bold;">News Headline</h4>
+        <h4 style="font-weight:bold;"><a href='{{ i.url }}'>{{ i.title }}</a></h4>
     </div>
     <div class="col-md-12 newsdot">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      {{ i.description }}
       </div>
     </div>
     </div>
 
 </div>
-
+{% endfor %}
 </div>
 </div>
 <div style="width:100%;" class="animation">
