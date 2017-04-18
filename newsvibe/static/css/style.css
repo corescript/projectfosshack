@@ -15,6 +15,7 @@ border-radius: 0;
 
   border-radius: 3px;
   padding: 20px;
+  height: 250px;
 }
 
 
@@ -51,14 +52,35 @@ border-radius: 0;
     }
 .stats
 {
-
+position:absolute;
+height: 200px;
+z-index:9;
+padding:0;
+width:100%;
+cursor:pointer;
+transition: all .2s ease-in-out;
+opacity:0;
+text-align:center;
+padding-top:30px;
+color:white;
 }
+
 
 .stats:hover
 {
-  opacity:1
+  opacity:.8;
+  background:black;
+  transition: all .2s ease-in-out;
 }
-
+.text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+       /* fallback */
+   height: 40px;      /* fallback */
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
 
 @media (max-width: 576px) {
 
