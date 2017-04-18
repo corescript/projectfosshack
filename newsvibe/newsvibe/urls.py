@@ -20,6 +20,7 @@ from news.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^get/', get_news),
+    url(r'^article/(?P<id>\d+)/$', article_view),
     url(r'^', index),
     
 ]

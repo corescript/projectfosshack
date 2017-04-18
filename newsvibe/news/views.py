@@ -50,7 +50,15 @@ def get_news(request):
         print atext.rstrip()
         obj = article()
         obj.title = i['title']
-        obj.text = atext
+        obj.text = atext.rstrip()
+
+        emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":obj.text, "level": "sentence" })
+        print emotion
+
+        topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
+        print topic
+        sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
+        print sentiment
         obj.save()
        
         #except:
@@ -84,3 +92,13 @@ def process_news(request):
 
     #print sentiment.body
     pp.pprint(sentiment.body)
+
+
+def article_view(request,id=None):
+
+    aobj =  article.objects.get(id=id)
+
+    context = {
+        'aobj': aobj
+    }
+    return render(request,"article.html", context)
