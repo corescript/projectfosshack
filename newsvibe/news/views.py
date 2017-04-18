@@ -53,7 +53,7 @@ def get_news(request):
         obj.text = atext.rstrip()
 
         emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":obj.text, "level": "sentence" })
-        print emotion
+        print emotion['emotions'][0]
 
         topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
         print topic
