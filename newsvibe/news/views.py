@@ -36,7 +36,7 @@ def get_news(request):
             data.url = i['url']
             data.urlToImage = i['urlToImage']
             data.publishedAt = i['publishedAt']
-            data.save()
+            
 
             extract = client.Extract({"url": data.url, "best_image": True})
             atext = extract['article']
@@ -55,7 +55,7 @@ def get_news(request):
             emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":obj.text, "level": "sentence" })
             sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
             try:    
-                
+                '''
                 obj.calm = emotion.body[0]['emotions'][1]['score']
                 obj.fear = emotion.body[0]['emotions'][2]['score']
                 obj.happy = emotion.body[0]['emotions'][3]['score']
@@ -78,11 +78,40 @@ def get_news(request):
                 obj.label =  sentiment.body[0]['sentiment']['label']
                 obj.anger = emotion.body[0]['emotions'][0]['score']
                 obj.save()
+                '''
+               
+                topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
+                top_3 = []
+                try:    
+                    top_3[0] =  topic.body[0]['scores'][0]['label']
+                    top_3[1] = topic.body[0]['scores'][1]['label']
+                    top_3[2] = topic.body[0]['scores'][2]['label']
+                except:
+                    pass
+                print top_3
+                data.positive =  sentiment.body[0]['sentiment']['positive']
+                data.label =  sentiment.body[0]['sentiment']['label']
+                data.negative =  sentiment.body[0]['sentiment']['negative']
+                
+                data.neutral =  sentiment.body[0]['sentiment']['neutral']
+                
+                data.calm = emotion.body[0]['emotions'][1]['score']
+                data.fear = emotion.body[0]['emotions'][2]['score']
+                data.happy = emotion.body[0]['emotions'][3]['score']
+                data.like = emotion.body[0]['emotions'][4]['score']
+                data.shame = emotion.body[0]['emotions'][5]['score']
+                data.sure = emotion.body[0]['emotions'][6]['score']
+                data.surprise = emotion.body[0]['emotions'][7]['score']
+
+                data.anger = emotion.body[0]['emotions'][0]['score']
+                obj.save()
+
             except:
                 pass
             #except:
             #    print "Error :("
     #print place1
+            data.save()
         except:
             pass
     return HttpResponse("DONE")

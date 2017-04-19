@@ -15,27 +15,7 @@ class news(models.Model):
 	publishedAt = models.CharField(default="Not available",max_length = 100,blank=True,null=True)
 	
 	slug = extension_fields.AutoSlugField(populate_from='title', blank=True)
-	#def get_article_id(self):
-    #   		return self.id
-	def __unicode__(self):
-		return u'%s' % self.slug
 
-	
-	def get_slug(self):
-       		return self.slug
-	def __str__(self):
-		return self.name
-	#def get_update_url(self):
-	#	return reverse('event_event_update', args=(self.slug,))
-	#def get_absolute_url(self):
-    #    	return reverse("sensor:plot", kwargs={"sid": self.id})
-	# def __str__(self):
-    #    	return self.title
-    
-
-class article(models.Model):
-	title = models.CharField(max_length = 300,default="Not available",primary_key = True)
-	text = models.TextField(default="Not available")
 	positive = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)	
 	negative = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
 	neutral = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
@@ -48,3 +28,27 @@ class article(models.Model):
 	shame = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
 	sure = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
 	surprise = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
+	#def get_article_id(self):
+    #   		return self.id
+	def __unicode__(self):
+		return u'%s' % self.slug
+
+	
+	def get_slug(self):
+       		return self.slug
+	def __str__(self):
+		return self.title
+	#def get_update_url(self):
+	#	return reverse('event_event_update', args=(self.slug,))
+	#def get_absolute_url(self):
+    #    	return reverse("sensor:plot", kwargs={"sid": self.id})
+	# def __str__(self):
+    #    	return self.title
+    
+
+class article(models.Model):
+	title = models.CharField(max_length = 300,default="Not available",primary_key = True)
+	text = models.TextField(default="Not available")
+	def __str__(self):
+		return self.title
+	
