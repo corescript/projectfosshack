@@ -80,6 +80,13 @@ color:white;
    height: 40px;      /* fallback */
    -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
+   -moz-line-clamp: 2; /* number of lines to show */
+   -moz-box-orient: vertical;
+}
+
+.form-control
+{
+  width: 40vw;
 }
 
 @media (max-width: 576px) {
@@ -97,14 +104,20 @@ color:white;
   display: none;
 }
 
-}
-
-@media (min-width: 992px) {
 
 }
 
+@media (max-width: 992px) {
 
-@media (min-width: 1200px) {
+  .widther
+  {
+    width: 40vw;
+  }
+
+}
+
+
+@media (max-width: 1200px) {
 
 
 }
