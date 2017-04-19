@@ -37,12 +37,14 @@ def get_news(request):
     for i in articles:
         try:
             data = news()
-            data.description = i['description']
+           
             data.title = i['title']
+            data.save()
+            data.description = i['description']
             data.url = i['url']
             data.urlToImage = i['urlToImage']
             data.publishedAt = i['publishedAt']
-            
+            data.save()
 
             extract = client.Extract({"url": data.url, "best_image": True})
             atext = extract['article']
@@ -54,7 +56,7 @@ def get_news(request):
 
             atext = response.body
             """
-            print atext.rstrip()
+            #print atext.rstrip()
             obj = article()
             obj.title = i['title']
             obj.text = atext.rstrip()
@@ -94,7 +96,7 @@ def get_news(request):
                     top_3[2] = topic.body[0]['scores'][2]['label']
                 except:
                     pass
-                print top_3
+                #print top_3
                 data.positive =  sentiment.body[0]['sentiment']['positive']
                 data.label =  sentiment.body[0]['sentiment']['label']
                 data.negative =  sentiment.body[0]['sentiment']['negative']
@@ -110,6 +112,8 @@ def get_news(request):
                 data.surprise = emotion.body[0]['emotions'][7]['score']
 
                 data.anger = emotion.body[0]['emotions'][0]['score']
+                
+                
                 obj.save()
                 data.save()
                 '''
@@ -132,11 +136,11 @@ def get_news(request):
                     #pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
                     '''
             except:
-                pass
+                print "error a"
                 
             
         except:
-            pass
+            print "error b"
     return HttpResponse("DONE")
 
 
@@ -201,8 +205,8 @@ def article_view(request,slug=None):
         for i in range(0,len(filtered_list)):
             rel_list[0].append(filtered_list[i].title)
             rel_list[1].append(filtered_list[i].links.permalink)
-            rel_title += filtered_list[i].title
-            rel_links += filtered_list[i].links.permalink
+            #rel_title += filtered_list[i].title
+            #rel_links += filtered_list[i].links.permalink
         
         
         print rel_title
@@ -226,8 +230,8 @@ def article_view(request,slug=None):
         'aobj': aobj,
         'nobj': nobj,
         'rel_title':rel_title,
-        'rel_links':rel_links,
-        'rel_list':rel_list,
+        #'rel_links':rel_links,
+        #'rel_list':rel_list,
         'length':length,
 
     }
