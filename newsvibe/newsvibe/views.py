@@ -4,12 +4,23 @@ from django.contrib.auth.forms import AdminPasswordChangeForm, PasswordChangeFor
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.shortcuts import render, redirect
+import feedparser
 
 from social_django.models import UserSocialAuth
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+	a = feedparser.parse('http://www.mathrubhumi.com/cmlink/mathrubhumi-latestnews-rssfeed-1.3161')
+	b = feedparser.parse('http://www.madhyamam.com/rss.xml')
+	d = feedparser.parse('http://www.manoramaonline.com/news/just-in.feed')
+	
+
+	context = {
+		"a": a, 
+		"b": b, 
+		"d": d, 
+	}
+	return render(request, 'home.html',context)
 
 @login_required
 def settings(request):
