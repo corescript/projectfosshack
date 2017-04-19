@@ -24,7 +24,7 @@ def index(request):
     return render(request,'index.html',context)
 
 def get_news(request):
-    
+
 
     response1 = unirest.get("https://newsapi.org/v1/articles/", headers={ "Accept": "application/json" }, params={"apiKey": "7a233aaececb44a3a0dd8576350c680e", "sortBy":"top", "source":"google-news"})
 
@@ -37,7 +37,7 @@ def get_news(request):
     for i in articles:
         try:
             data = news()
-           
+
             data.title = i['title']
             data.save()
             data.description = i['description']
@@ -62,7 +62,7 @@ def get_news(request):
             obj.text = atext.rstrip()
             emotion = unirest.post("http://apidemo.theysay.io/api/v1/emotion", headers={ "Accept": "application/json" }, params={ "text":obj.text, "level": "sentence" })
             sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
-            try:    
+            try:
                 '''
                 obj.calm = emotion.body[0]['emotions'][1]['score']
                 obj.fear = emotion.body[0]['emotions'][2]['score']
@@ -73,7 +73,7 @@ def get_news(request):
                 obj.surprise = emotion.body[0]['emotions'][7]['score']
                 topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
                 top_3 = []
-                try:    
+                try:
                     top_3[0] =  topic.body[0]['scores'][0]['label']
                     top_3[1] = topic.body[0]['scores'][1]['label']
                     top_3[2] = topic.body[0]['scores'][2]['label']
@@ -87,10 +87,10 @@ def get_news(request):
                 obj.anger = emotion.body[0]['emotions'][0]['score']
                 obj.save()
                 '''
-               
+
                 topic = unirest.post("http://apidemo.theysay.io/api/v1/topic", headers={ "Accept": "application/json" }, params={ "text": obj.text, "level": "sentence" })
                 top_3 = []
-                try:    
+                try:
                     top_3[0] =  topic.body[0]['scores'][0]['label']
                     top_3[1] = topic.body[0]['scores'][1]['label']
                     top_3[2] = topic.body[0]['scores'][2]['label']
@@ -100,9 +100,9 @@ def get_news(request):
                 data.positive =  sentiment.body[0]['sentiment']['positive']
                 data.label =  sentiment.body[0]['sentiment']['label']
                 data.negative =  sentiment.body[0]['sentiment']['negative']
-                
+
                 data.neutral =  sentiment.body[0]['sentiment']['neutral']
-                
+
                 data.calm = emotion.body[0]['emotions'][1]['score']
                 data.fear = emotion.body[0]['emotions'][2]['score']
                 data.happy = emotion.body[0]['emotions'][3]['score']
@@ -112,12 +112,12 @@ def get_news(request):
                 data.surprise = emotion.body[0]['emotions'][7]['score']
 
                 data.anger = emotion.body[0]['emotions'][0]['score']
-                
-                
+
+
                 obj.save()
                 data.save()
                 '''
-                opts = { 
+                opts = {
                     'cluster': False,
                     'cluster_algorithm': 'stc',
                     '_return': ['title', 'links'],
@@ -127,7 +127,7 @@ def get_news(request):
                     'boost_by': 'popularity',
                     'story_language': 'auto'
                 }
-                try: 
+                try:
                     # List related stories
                     api_response = api_instance.list_related_stories(**opts)
                     print(api_response)
@@ -137,8 +137,8 @@ def get_news(request):
                     '''
             except:
                 print "error a"
-                
-            
+
+
         except:
             print "error b"
     return HttpResponse("DONE")
@@ -173,14 +173,14 @@ def process_news(request):
 def article_view(request,slug=None):
     nobj = news.objects.get(slug=slug)
     aobj =  article.objects.get(title=nobj.title)
-   
-    
+
+
 
     aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-ID'] = 'b143cf6a'
     aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-Key'] = '89f2ead95da87d1dc9a27bbd5989d6c4'
     api_instance = aylien_news_api.DefaultApi()
 
-    opts = { 
+    opts = {
                     'cluster': False,
                     'cluster_algorithm': 'stc',
                     '_return': ['title', 'links'],
@@ -194,7 +194,7 @@ def article_view(request,slug=None):
     rel_title = []
     rel_links = []
     length=0
-    try: 
+    try:
         # List related stories
         api_response = api_instance.list_related_stories(**opts)
         filtered_list = api_response.related_stories#[i]
@@ -207,8 +207,8 @@ def article_view(request,slug=None):
             rel_list[1].append(filtered_list[i].links.permalink)
             #rel_title += filtered_list[i].title
             #rel_links += filtered_list[i].links.permalink
-        
-        
+
+
         print rel_title
         print rel_links
         print(api_response)
@@ -216,7 +216,7 @@ def article_view(request,slug=None):
         print "api error"
         #pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
 
-    
+
 
 
 
@@ -229,9 +229,9 @@ def article_view(request,slug=None):
     context = {
         'aobj': aobj,
         'nobj': nobj,
-        'rel_title':rel_title,
+        #'rel_title':rel_title,
         #'rel_links':rel_links,
-        #'rel_list':rel_list,
+        'rel_list':rel_list,
         'length':length,
 
     }

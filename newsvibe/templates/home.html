@@ -1,67 +1,51 @@
-{% extends "base.html" %}
-{% load i18n %}
-{% load static %}
+
+
 {% block content %}
+  <h2>Homepage</h2>
+  <p>Hello {{ user.username }}!</p>
+
+
+
 <div class="container-fluid">
   <div class="container">
   <div class="row">
-    <br /><br /><br />
-    <h2>Welcome <b>{{user.username }}</b></h2>
-    <br />
-   <h3>NewsVibe Personalised News </h3>
-
-  <div class="col-md-4">
-    <center><img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Manorama_News.svg/816px-Manorama_News.svg.png" alt="" width="40%" class="img-responsive">
-
-    <h3>Malayala Manorama</h3><br/><br/></center>
-    {% for obj in d.entries %}
-    <ul>
-      <li>
-        <h4>{{ obj.title }}</h4>
-      <a href='{{ obj.link }}'><button type="button" name="button" class="btn btn-primary btn-sm">Read More</button></a><br/><br/>
-      </li>
-    </ul>
-    {% endfor %}
-</div>
-<div class="col-md-4">
-
-  <center><img src="https://lh3.googleusercontent.com/-7y-_KBFfnQM/VcT-ZZNv8OI/AAAAAAAAAE0/MF6NAqhJNGY/w1024-h1024/mzl.nagmequq.png" alt="" width="50%" class="img-responsive">
-
-  <h3>Matrubhumi</h3><br/><br/></center>
+  
+   <h2>Goto Get bootstrap for Files </h2>
+  
+  <h3>Malayala Manorama</h3>
+  {% for obj in d.entries %}
+  <ul>
+    <li>
+      <h5>{{ obj.title }}</h5>
+      <a href='{{ obj.link }}'>{{ obj.link }}</a><br/>
+    </li>
+  </ul>
+  {% endfor %}
+  
+  
+  
+  <h3>Matrubhumi</h3>
   {% for obj in a.entries %}
   <ul>
     <li>
-      <h4>{{ obj.title }}</h4>
-      <a href='{{ obj.link }}'><button type="button" name="button" class="btn btn-primary  btn-sm">Read More</button></a><br/><br/>
+      <h5>{{ obj.title }}</h5>
+      <a href='{{ obj.link }}'>{{ obj.link }}</a><br/>
     </li>
   </ul>
   {% endfor %}
+  
 
-</div>
-
-
-<div class="col-md-4">
-
-  <center><img src="https://yt3.ggpht.com/-Vg0NGzVS2CA/AAAAAAAAAAI/AAAAAAAAAAA/Noqu_HHlI7c/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="" width="50%" class="img-responsive">
-
-  <h3>Madhyamam</h3><br/><br/></center>
+  
+  <h3>Madhyamam</h3>
   {% for obj in b.entries %}
   <ul >
     <li >
-      <h4>{{ obj.title }}</h4>
-      <a href='{{ obj.link }}'><button type="button" name="button" class="btn btn-primary btn-sm">Read More</button></a><br/><br/>
+      <h5>{{ obj.title }}</h5>
+      <a href='{{ obj.link }}'>{{ obj.link }}</a><br/>
     </li>
   </ul>
   {% endfor %}
-
-</div>
-
-
-
-
-
-
-
+  
 </div>
 </div>
 </div>
