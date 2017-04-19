@@ -112,28 +112,25 @@ def get_news(request):
                 data.anger = emotion.body[0]['emotions'][0]['score']
                 obj.save()
                 data.save()
-                '''   
-                opts = {
-                    'title': data.title,
+                '''
+                opts = { 
+                    'cluster': False,
+                    'cluster_algorithm': 'stc',
+                    '_return': ['title', 'links'],
                     'story_url': data.url,
-                    'story_title': data.title,
-                    'story_body': obj.text,
+                    #'story_title': obj.title,
+                    #'story_body': obj.text,
                     'boost_by': 'popularity',
-                    'story_language': 'auto',
-
-                    
-                    }
+                    'story_language': 'auto'
+                }
                 try: 
                     # List related stories
                     api_response = api_instance.list_related_stories(**opts)
-                    pprint(api_response)
-                
-                
-                
-            #data.save()
-            except ApiException as e:
-                    pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
-            '''
+                    print(api_response)
+                except ApiException as e:
+                    print "api error"
+                    #pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
+                    '''
             except:
                 pass
                 
@@ -174,11 +171,56 @@ def article_view(request,slug=None):
     aobj =  article.objects.get(title=nobj.title)
    
     
+
+    aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-ID'] = 'b143cf6a'
+    aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-Key'] = '89f2ead95da87d1dc9a27bbd5989d6c4'
+    api_instance = aylien_news_api.DefaultApi()
+
+    opts = { 
+                    'cluster': False,
+                    'cluster_algorithm': 'stc',
+                    '_return': ['title', 'links'],
+                    'story_url': data.url,
+                    #'story_title': obj.title,
+                    #'story_body': obj.text,
+                    'boost_by': 'popularity',
+                    'story_language': 'auto'
+                }
+    rel_title = []
+    rel_links = []
+    try: 
+        # List related stories
+        api_response = api_instance.list_related_stories(**opts)
+        filtered_list = api_response.related_stories#[i]
+        #rel_title = []
+        #rel_links = []
+        for i in range(0,len(filtered_list)):
+            rel_title += filtered_list[i].title
+            rel_links += filtered_list[i].links.permalink
+        
+        
+        print rel_title
+        print rel_links
+        print(api_response)
+    except ApiException as e:
+        print "api error"
+        #pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
+
+    
+
+
+
+
+
+
+
     #aobj =  article.objects.get(slug=slug)
     #nobj = news.objects.get(title=aobj.title)
     context = {
         'aobj': aobj,
         'nobj': nobj,
+        'rel_title':rel_title,
+        'rel_links':rel_links,
 
     }
     return render(request,"article.html", context)
