@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from aylienapiclient import textapi
+import aylien_news_api
+from aylien_news_api.rest import ApiException
 
 from .models import *
 
@@ -22,12 +24,16 @@ def index(request):
     return render(request,'index.html',context)
 
 def get_news(request):
-
+    
 
     response1 = unirest.get("https://newsapi.org/v1/articles/", headers={ "Accept": "application/json" }, params={"apiKey": "7a233aaececb44a3a0dd8576350c680e", "sortBy":"top", "source":"google-news"})
 
     articles = response1.body['articles']
     client = textapi.Client("faf883f4", "057f1bdde3dba11b14cf9abc9abbf986")
+    aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-ID'] = 'b143cf6a'
+    aylien_news_api.configuration.api_key['X-AYLIEN-NewsAPI-Application-Key'] = '89f2ead95da87d1dc9a27bbd5989d6c4'
+    api_instance = aylien_news_api.DefaultApi()
+
     for i in articles:
         try:
             data = news()
@@ -105,13 +111,33 @@ def get_news(request):
 
                 data.anger = emotion.body[0]['emotions'][0]['score']
                 obj.save()
+                data.save()
+                '''   
+                opts = {
+                    'title': data.title,
+                    'story_url': data.url,
+                    'story_title': data.title,
+                    'story_body': obj.text,
+                    'boost_by': 'popularity',
+                    'story_language': 'auto',
 
+                    
+                    }
+                try: 
+                    # List related stories
+                    api_response = api_instance.list_related_stories(**opts)
+                    pprint(api_response)
+                
+                
+                
+            #data.save()
+            except ApiException as e:
+                    pprint("Exception when calling DefaultApi->list_related_stories: %s\n" % e)
+            '''
             except:
                 pass
-            #except:
-            #    print "Error :("
-    #print place1
-            data.save()
+                
+            
         except:
             pass
     return HttpResponse("DONE")

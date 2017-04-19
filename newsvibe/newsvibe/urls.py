@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^article/(?P<slug>\S+)/', article_view),
     url(r'^get/', get_news),
-<<<<<<< HEAD
-    url(r'^article/(?P<id>\d+)/$', article_view),
+
+    #url(r'^article/(?P<id>\d+)/$', article_view),
     url(r'^home/$', home, name='home'),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
@@ -33,10 +33,10 @@ urlpatterns = [
         url(r'^settings/$', settings, name='settings'),
     url(r'^settings/password/$', password, name='password'),
 
-=======
+
     #url(r'^article/(?P<id>\d+)/', article_view),
     
->>>>>>> 184f85e0cdb7a61572a2b2c161a4d1cdc9c820f7
+
     url(r'^', index),
     
 ]
