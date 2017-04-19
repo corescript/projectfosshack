@@ -20,4 +20,6 @@ sentiment = unirest.post("http://apidemo.theysay.io/api/v1/sentiment", headers={
 #print sentiment.body
 pp.pprint(sentiment.body)
 
-
+print topic.body[0]['scores'][0]['label']
+print topic.body[0]['scores'][1]['label']
+print topic.body[0]['scores'][2]['label']
