@@ -6,4 +6,4 @@ from .models import *
 # Register your models here.
 
 
-admin.register(news)(admin.ModelAdmin)
+admin.register(news,article)(admin.ModelAdmin)
