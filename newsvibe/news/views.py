@@ -180,21 +180,27 @@ def article_view(request,slug=None):
                     'cluster': False,
                     'cluster_algorithm': 'stc',
                     '_return': ['title', 'links'],
-                    'story_url': data.url,
+                    'story_url': nobj.url,
                     #'story_title': obj.title,
                     #'story_body': obj.text,
                     'boost_by': 'popularity',
                     'story_language': 'auto'
                 }
+    rel_list=None
     rel_title = []
     rel_links = []
+    length=0
     try: 
         # List related stories
         api_response = api_instance.list_related_stories(**opts)
         filtered_list = api_response.related_stories#[i]
+        length = len(filtered_list)
+        rel_list = [[] for i in range(length)]
         #rel_title = []
         #rel_links = []
         for i in range(0,len(filtered_list)):
+            rel_list[0].append(filtered_list[i].title)
+            rel_list[1].append(filtered_list[i].links.permalink)
             rel_title += filtered_list[i].title
             rel_links += filtered_list[i].links.permalink
         
@@ -221,6 +227,8 @@ def article_view(request,slug=None):
         'nobj': nobj,
         'rel_title':rel_title,
         'rel_links':rel_links,
+        'rel_list':rel_list,
+        'length':length,
 
     }
     return render(request,"article.html", context)

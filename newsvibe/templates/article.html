@@ -57,6 +57,15 @@
 
   <a href='{{ nobj.url }}'><button class="btn btn-primary"type="button" name="button">source article</button></a><br />
 
+  <br/>
+  related articles
+  <br/>
+  {% for i in rel_list %}
+   {{ i.0 }}
+    {{ i.1 }}
+
+
+  {% endfor %}
   <!--anger:  <br/>
   calm: {{ nobj.calm }} <br/>
   fear:  <br/>

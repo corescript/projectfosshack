@@ -9,12 +9,13 @@ from django.db import models
 
 class news(models.Model):
 	title = models.CharField(max_length = 300,default="Not available",primary_key = True)
+	slug = extension_fields.AutoSlugField(populate_from='title', blank=True)
 	description = models.TextField(default="Not available")
 	url = models.URLField(default="Not available")
 	urlToImage = models.URLField(default="Not available")
 	publishedAt = models.CharField(default="Not available",max_length = 100,blank=True,null=True)
 	
-	slug = extension_fields.AutoSlugField(populate_from='title', blank=True)
+	
 
 	positive = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)	
 	negative = models.DecimalField(default = 0.0,max_digits = 10,decimal_places = 3)
